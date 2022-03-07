@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 3</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="窗帘-copy-8备份-12" transform="translate(-177.000000, -577.000000)" fill-rule="nonzero">
+            <g id="2" transform="translate(0.000000, 527.000000)">
+                <g id="按钮底" transform="translate(157.000000, 30.000000)">
+                    <g id="编组-3" transform="translate(20.000000, 20.000000)">
+                        <rect id="矩形" x="0" y="0" width="24" height="24"></rect>
+                        <path d="M6.5,5 C7.32842712,5 8,5.67157288 8,6.5 L8,17.5 C8,18.3284271 7.32842712,19 6.5,19 C5.67157288,19 5,18.3284271 5,17.5 L5,6.5 C5,5.67157288 5.67157288,5 6.5,5 Z M17.5,5 C18.3284271,5 19,5.67157288 19,6.5 L19,17.5 C19,18.3284271 18.3284271,19 17.5,19 C16.6715729,19 16,18.3284271 16,17.5 L16,6.5 C16,5.67157288 16.6715729,5 17.5,5 Z" id="暂停" fill="#B3BFC9"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

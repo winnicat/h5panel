@@ -25,6 +25,74 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <script>
+      /* eslint-disable */
+      (function(win) {
+        var resizeEvt = 'orientationchange' in win ? 'orientationchange' :
+          'resize';
+        var baseFontSize = 100;
+        var psdWidth = 375; // 以 i6 为参照
+        var doc = win.document;
+        var docEl = doc.documentElement;
+  
+        function recalc() {
+          var ua = navigator.userAgent;
+          var matches = ua.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i);
+          var UCversion = ua.match(/U3\/((\d+|\.){5,})/i);
+          var isUCHd = UCversion && parseInt(UCversion[1].split('.')
+            .join(''), 10) >= 80;
+          var isIos = navigator.appVersion.match(/(iphone|ipad|ipod)/gi);
+          var dpr = win.devicePixelRatio || 1;
+  
+          // 为了消除安卓dpr乱标的比例
+          var rate = 1;
+          var scale = 1 / dpr;
+  
+          if (!isIos) {
+            if (matches && matches[1] > 537 || isUCHd) {
+              // 有些兼容环境下, fontSize为100px的时候, 结果1rem=86px; 需要纠正viewport;
+              docEl.style.fontSize = baseFontSize + 'px';
+              var div = doc.createElement('div');
+              div.setAttribute('style', 'width: 1rem; display: none;');
+              docEl.appendChild(div);
+              var trueWidth = win.getComputedStyle(div).width;
+              docEl.removeChild(div);
+              // 如果1rem的真实px跟html.fontSize不符. 那么就要加一个rate缩放了;
+              if (trueWidth !== docEl.style.fontSize) {
+                var trueWidthVal = parseInt(trueWidth, 10);
+                rate = baseFontSize / trueWidthVal;
+                scale = scale * rate;
+              }
+            } else {
+              // 如果是在PC或者安卓4.3(会闪屏)以下, 则正常展现.
+              scale = 1;
+              dpr = 1;
+            }
+          }
+          var metaEl = doc.querySelector('meta[name="viewport"]');
+          if (!metaEl) {
+            metaEl = doc.createElement('meta');
+            metaEl.setAttribute('name', 'viewport');
+            doc.head.appendChild(metaEl);
+          }
+          metaEl.setAttribute('content',
+            'width=device-width, user-scalable=no, initial-scale=' + scale +
+            ', maximum-scale=' + scale + ', minimum-scale=' + scale);
+          var rect = docEl.getBoundingClientRect();
+          var width = rect.width;
+          if (width / dpr > 540) {
+            width = dpr * 540;
+          }
+          var baseREM = baseFontSize / psdWidth * width * rate;
+          docEl.style.fontSize = baseREM + 'px';
+          win.baseREM = baseREM;
+          win.viewportScale = dpr;
+        }
+        recalc();
+        win.addEventListener(resizeEvt, recalc, false);
+      })(this);
+  
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
