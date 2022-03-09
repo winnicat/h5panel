@@ -3,7 +3,7 @@ import style from "./style.module.less";
 
 interface IProps {
   icon?: React.ReactElement | React.ReactDOM;
-  children: React.ReactElement | React.ReactDOM;
+  children: React.ReactElement | React.ReactDOM | string;
   [ohter: string]: any;
 }
 

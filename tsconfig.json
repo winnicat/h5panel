@@ -10,7 +10,7 @@
   },
   "include": [
     "src/**/*"
-  ],
+, "src/util/hejia-1.5.0.min.js", "eslint-import-resolver.js"  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
