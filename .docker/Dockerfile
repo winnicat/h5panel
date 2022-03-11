@@ -17,10 +17,18 @@ COPY . /code
 FROM registry.shdocker.tuya-inc.top/mirror/nginx:1.15.0
 
 ADD .docker/nginx.conf /etc/nginx/conf.d/default.conf
-ADD .docker /static
+ADD .docker /www
 
 COPY ./build /
 
-RUN chmod -R 755 /static
+RUN chmod -R 755 /www
 
 CMD [ "sh", "/entrypoint.sh" ]
+
+
+# FROM registry.shdocker.tuya-inc.top/mirror/nginx:1.15.0
+
+# COPY .docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# COPY ./client/out /www
+# RUN chmod -R 755 /www
