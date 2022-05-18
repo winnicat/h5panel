@@ -4,15 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import '@hejia';
+import { getDeviceId, getDeviceInfo, getToken } from './util/hejia';
+import { CustomAxios } from './server/api';
 
-Hejia.ready(function () {
-  const deviceId = Hejia.getDeviceId();
-  ReactDOM.render(
-    <React.StrictMode>
-      <App deviceId={deviceId} />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+
+Hejia.ready(() => {
+  getToken().then(token => {
+    CustomAxios.getInstance(token)
+    return getDeviceInfo()
+  }).then((res) => {
+    console.log('rererere', res)
+    ReactDOM.render(
+      <React.StrictMode>
+        <App deviceId={(res as any).device.id} />
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  })
 });
 
 {

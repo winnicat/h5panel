@@ -2,11 +2,12 @@ import './App.css';
 import style from './style.module.less';
 
 import React, { useEffect, useState, useReducer, createContext } from 'react';
-import { getDeviceInfo, getDeviceParams } from './util/hejia';
+import { getDeviceInfo, getDeviceParams, getToken } from './util/hejia';
 import { Mask } from 'antd-mobile';
 import FooterButton from './container/FooterButton/index';
 import LightButton from './container/LightButton/index';
 import events from './util/events';
+import {getCountryList} from './server/api';
 
 const initialState = {
   control: 'stop',
@@ -37,6 +38,9 @@ function App({ deviceId }) {
 
   // 更新设备数据
   const updateDeviceData = () => {
+    setTimeout(() => {
+      getToken().then(token => console.log('token', token))
+    }, 2000)
     getDeviceInfo().then(({ device, location }) => {
       setConnected(device.connected);
     });
@@ -50,6 +54,7 @@ function App({ deviceId }) {
   };
 
   useEffect(() => {
+    getCountryList().then(res => console.log(res.data));
     updateDeviceData();
     // 数据更新，不可靠，所以加了轮询做数据更新上的双重保障
     Hejia.onMessage((obj) => {

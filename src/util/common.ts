@@ -1,7 +1,12 @@
-export const formatDpsData = ({id, parameters : params}) => {
+/**
+ * 过滤dp数据
+ * @param param0 
+ * @returns 
+ */
+export const formatDpsData = ({ id, parameters: params }) => {
   if (!id) return;
   const dps = {}
-  for(let item of params) {
+  for (let item of params) {
     if (item.name !== 'softVersion' && item.name !== 'firmware') {
       dps[item.name] = item.value
     }

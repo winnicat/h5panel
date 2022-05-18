@@ -1,8 +1,37 @@
 import { formatDpsData } from "./common";
+import '@hejia';
 
-const handleErrorFn = (fn) => (msg, obj) => {
-  console.log("hejia error: ", msg);
-  fn(obj)
+const handleErrorFn = (rejFn, resFn?: (value?: any) => any, fnName?: string) => (msg, obj) => {
+  console.log(`hejia error [${fnName}]: `, msg);
+  if (fnName === 'getToken') {
+    customBridge('getMetaData').then((data: {
+      uid: string,
+      token: string,
+      apiKey: string
+    }) => {
+      console.log('---- getMetaData', data)
+      const { token } = data
+      resFn(token)
+    }).catch(rejFn)
+  } else {
+    rejFn(obj)
+  }
+}
+
+const customBridge = (name, params?: any) => {
+  return new Promise((resolve, reject) => {
+    const wvb = global.WebViewJavascriptBridge
+    if (!wvb) reject(new Error('不支持WebViewJavascriptBridge'))
+    global.WebViewJavascriptBridge.callHandler(name, params, (response) => {
+      let res;
+      try {
+        res = JSON.parse(response);
+      } catch (e) {
+        res = response;
+      }
+      resolve(res);
+    });
+  })
 }
 
 
@@ -36,7 +65,7 @@ export const getDeviceParams = (opts?: {
  */
 export const control = (parameters) => {
   return new Promise((res, rej) => {
-    Hejia.setControlParam({parameters}, res, handleErrorFn(rej));
+    Hejia.setControlParam({ parameters }, res, handleErrorFn(rej));
   })
 }
 
@@ -45,13 +74,15 @@ export const control = (parameters) => {
  * @returns 
  */
 export const getToken = () => {
-  return new Promise((res, rej) => {
-    Hejia.setControlParam(res, rej);
+  return new Promise((res: (token: string) => void, rej) => {
+    Hejia.ready(() => {
+      Hejia.getToken(res, handleErrorFn(rej, res, 'getToken'));
+    })
   })
 }
 
 /**
- * 获取设备id
+ * 无效！用getDeviceInfo代替！ 获取设备id
  * @returns 
  */
 export const getDeviceId = () => {
