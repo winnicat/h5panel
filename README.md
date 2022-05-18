@@ -36,12 +36,12 @@
 &emsp;&emsp;|-- model 状态管理  
 &emsp;&emsp;|-- router 路由配置  
 &emsp;&emsp;|-- server 接口  
-&emsp;&emsp;|-- util 通用方法
-&emsp;&emsp;&emsp;&emsp;|-- common.ts 通用方法
-&emsp;&emsp;&emsp;&emsp;|-- dp.ts 下发dp点的方法集合
-&emsp;&emsp;&emsp;&emsp;|-- events.ts 事件中心
-&emsp;&emsp;&emsp;&emsp;|-- hejia.ts 和家亲提供的接口二次封装
-&emsp;&emsp;|-- index.tsx 入口文件  
+&emsp;&emsp;|-- util 通用方法  
+&emsp;&emsp;&emsp;&emsp;|-- common.ts 通用方法   
+&emsp;&emsp;&emsp;&emsp;|-- dp.ts 下发dp点的方法集合  
+&emsp;&emsp;&emsp;&emsp;|-- events.ts 事件中心  
+&emsp;&emsp;&emsp;&emsp;|-- hejia.ts 和家亲提供的接口二次封装  
+&emsp;&emsp;|-- index.tsx 入口文件    
 |--.gitignore  
 |--package.json  
 |--README.md  
